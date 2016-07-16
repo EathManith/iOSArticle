@@ -69,8 +69,11 @@ NSDictionary *fb_data;
     }else{
         NSLog(@"get profile");
         [self getfbprofile];
+        [self performSegueWithIdentifier:@"ShowProfileSegue" sender:fb_data];
         
     }
+    
+    
     
 }
 
@@ -97,32 +100,10 @@ NSDictionary *fb_data;
              NSLog(@"------------------Logged in");
              [self getfbprofile];
              [self performSegueWithIdentifier:@"ShowProfileSegue" sender:fb_data];
+             //  [login logOut];
+
          }
      }];
-//    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-//    login.loginBehavior = FBSDKLoginBehaviorWeb;
-//    [login logInWithReadPermissions:@[@"email",@"user_birthday"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-//        if (error)
-//        {
-//            // Process error
-//            NSLog(@"error!");
-//        }
-//        else if (result.isCancelled)
-//        {
-//            // Handle cancellations
-//        }
-//        else
-//        {
-//           // [self getfbprofile];
-//            if ([result.grantedPermissions containsObject:@"email"])
-//            {
-//                NSLog(@"result is:%@",result);
-//                [self getfbprofile];
-//                
-//              //  [login logOut];
-//            }
-//        }
-//    }];
 }
 
 -(void)getfbprofile{
@@ -173,17 +154,107 @@ NSDictionary *fb_data;
         u.urlProfile = @"https://bower.io/img/bower-logo.png";
         
         [self performSegueWithIdentifier:@"ShowProfileSegue" sender:u];
+    }else if([_tfEmail.text  isEqualToString: @"book"] && [_tfPassword.text isEqualToString:@"123"]){
+        // By Segue
+        //        [self performSegueWithIdentifier:@"ShowRecipeSegue" sender:nil];
+        
+        
+        //        // By Programmatically
+        UINavigationController *listRootNavigationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ListRootNavigation"];
+        [self presentViewController:listRootNavigationViewController animated:YES completion:nil];
+    }else if([_tfEmail.text  isEqualToString: @"abc"] && [_tfPassword.text isEqualToString:@"123"]){
+        //[self showTextAlertView:nil];
     }else{
-        return;
+        // [self prepareAlertController];
+        
     }
-    
 }
 
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//    ProfileViewController *vc = [segue destinationViewController];
+//- (void)showTextAlertView:(UIButton *)sender
+//    {
+//        NSString *alertTitle = NSLocalizedString(@"TextAlertTitle", @"Text Input Alert");
+//        NSString *alertMessage = NSLocalizedString(@"TextAlertMessage", @"Plain and secure text input");
+//        
+//        UIAlertController *alertController1 = [UIAlertController alertControllerWithTitle:alertTitle
+//                                                                                  message:alertMessage
+//                                                                           preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        [alertController1 addTextFieldWithConfigurationHandler:^(UITextField *textField)
+//         {
+//             textField.placeholder = NSLocalizedString(@"LoginPlaceholder", @"Login");
+//             [textField addTarget:self
+//                           action:@selector(alertTextFieldDidChange:)
+//                 forControlEvents:UIControlEventEditingChanged];
+//         }];
+//        
+//        [alertController1 addTextFieldWithConfigurationHandler:^(UITextField *textField)
+//         {
+//             textField.placeholder = NSLocalizedString(@"PasswordPlaceholder", @"Password");
+//             textField.secureTextEntry = YES;
+//         }];
+//        
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action")
+//                                                               style:UIAlertActionStyleCancel
+//                                                             handler:^(UIAlertAction *action)
+//                                       {
+//                                           NSLog(@"Cancel action");
+//                                       }];
+//        
+//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+//                                                           style:UIAlertActionStyleDefault
+//                                                         handler:^(UIAlertAction *action)
+//                                   {
+//                                       UITextField *login = alertController.textFields.firstObject;
+//                                       UITextField *password = alertController.textFields.lastObject;
+//                                       
+//                                       NSLog(@"OK action");
+//                                       NSLog(@"Login value: %@",login.text);
+//                                       NSLog(@"Password value: %@",password.text);
+//                                   }];
+//        
+//        okAction.enabled = NO;
+//        [alertController1 addAction:cancelAction];
+//        [alertController1 addAction:okAction];
+//        
+//        [self presentViewController:alertController1 animated:YES completion:nil];
+//    }
 //    
-//    vc.user = sender;
+//#pragma mark -
+//#pragma mark === UITextField - UIControlEventEditingChanged ===
+//#pragma mark -
+//    
+//    - (void)alertTextFieldDidChange:(UITextField *)sender
+//    {
+//        UIAlertController *alertController1 = (UIAlertController *)self.presentedViewController;
+//        if (alertController1)
+//        {
+//            //UITextField *login = alertController.textFields.firstObject;
+//            UITextField *login = [alertController1.textFields objectAtIndex:0];
+//            UIAlertAction *okAction = alertController1.actions.lastObject;
+//            okAction.enabled = login.text.length > 2;
+//        }
+//    }
+//    
+//    -(void)prepareAlertController{
+//        UIAlertAction *cancelAction = [UIAlertAction
+//                                       actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action")
+//                                       style:UIAlertActionStyleCancel
+//                                       handler:^(UIAlertAction *action)
+//                                       {
+//                                           NSLog(@"Cancel action");
+//                                       }];
+//        UIAlertAction *okAction = [UIAlertAction
+//                                   actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+//                                   style:UIAlertActionStyleDefault
+//                                   handler:^(UIAlertAction *action)
+//                                   {
+//                                       NSLog(@"OK action");
+//                                   }];
+//        [alertController addAction:cancelAction];
+//        [alertController addAction:okAction];
+//        [self presentViewController:alertController animated:YES completion:nil];
 //}
+//    
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     ProfileViewController *vc = [segue destinationViewController];

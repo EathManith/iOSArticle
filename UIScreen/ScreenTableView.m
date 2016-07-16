@@ -17,6 +17,7 @@
 @synthesize displayedItems;
 @synthesize filteredItems;
 
+
 -(void)viewDidLoad{
     nameList = [NSArray arrayWithObjects:@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut",@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut",@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut",@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", nil];
     _tvController.delegate=self;
@@ -29,11 +30,12 @@
     // Initially display the full list.  This variable will toggle between the full and the filtered lists.
     self.displayedItems = nameList;
     [self prepareSearchController];
+    
+    NSLog(@"abbb");
 
 }
 
 -(void)prepareSearchController{
-    NSLog(@"prepare search controller");
     // Here's where we create our UISearchController
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
@@ -44,6 +46,7 @@
     // Hides search bar initially.  When the user pulls down on the list, the search bar isrevealed.
     [self.tableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
 }
+
 // When the user types in the search bar, this method gets called.
 - (void)updateSearchResultsForSearchController:(UISearchController *)aSearchController {
     NSLog(@"updateSearchResultsForSearchController");
@@ -59,14 +62,13 @@
             }
         }
         self.displayedItems = self.filteredItems;
-        
     }
     else {
         self.displayedItems = nameList;
-        NSLog(@"test11");
     }
     [self.tableView reloadData];
 }
+
 
 
 -(void) prepareBarButton{
@@ -104,12 +106,12 @@
     // set value for cell's controls
     customCell.imgVPro.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld", (long)indexPath.row+1]];
   
-    customCell.labeTitle.text = nameList[indexPath.row];
+    customCell.labeTitle.text = displayedItems[indexPath.row];
     
     customCell.txtvDetail.text = [NSString stringWithFormat:@"detail %ld", (long)indexPath.row];
     
     return customCell;
-    
+
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
